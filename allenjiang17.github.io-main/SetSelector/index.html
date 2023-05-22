@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Set Selector</title>
+  <link rel="icon" type="image/x-icon" href="icons/ssm_icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="styles/styles.css" id="themedefault">
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="styles/styles.dark.css" id="themeos">
+  <link rel="stylesheet" href="" id="themetoggle">
+  <link rel="stylesheet" href="" id="thememobile">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+  </style>
+
+  <meta charset="UTF-8">
+  <title>Streaming Speech to Text</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="./main.js"></script>
+
+</head>
+
+<body>
+
+  <!--Mobile Stuff-->
+  <div id="mobile_header" class="hidden">
+    <div id="mobile_bar">
+      <img id="mobile_ssm_icon" src="icons/ssm_icon.png">
+      <div style="display:flex; width: 80%; align-items: center; justify-content:space-between">
+        <input type="text" placeholder="Search.." id="mobile_search_bar" oninput="mobileSearch()">
+        <!--<img src="icons/search.svg" onclick="mobileSearch()" class="icon_button" style="height: 2.1rem; padding:0.5em; margin-left:0.1rem; margin-right:0.1rem; background-color:rgb(200,200,200);">-->
+      </div>
+      <img src="icons/list.svg" class="icon_button" style="height: 2.1rem; padding:0.5em; margin-left:0.1rem;">
+    </div>
+    <ul id="mobile_search_results"></ul>
+  </div>
+
+  <div id="mobile_dashboard" class="dashboard hidden">
+    <span class="dashboard_button" onclick="addSongToSet()" style="font-size:2vh;border-radius:2vh"
+      title="Add song to set with key/chord/lyric changes">
+      Add to Set
+    </span>
+    <div id="mobile_transpose_dashboard">
+      <img id="mobile_button_minus" src="icons/caret-down-fill.svg" class="transpose_button" title="Decrease key"
+        style="margin:0">
+      <div id="mobile_key_display" class="key_display" style="margin:0; text-align:center;">?</div>
+      <img id="mobile_button_plus" src="icons/caret-up-fill.svg" class="transpose_button" title="Increase key"
+        style="margin:0">
+    </div>
+  </div>
+
+  <!-- 
+=== POPUP STUFF ===============================================================
+-->
+  <div id="popup-background" class="popup-background" onclick="closeAllPopUp()"></div>
+  <div id="editlibrarypopupplaceholder" style="display:none" class="popup-placeholder"></div>
+  <div id="addsongpopupplaceholder" style="display:none" class="popup-placeholder"></div>
+  <div id="tutorialpopupplaceholder" style="display:none" class="popup-placeholder"></div>
+  <div id="editlyricspopupplaceholder" style="display:none" class="popup-placeholder"></div>
+  <div id="editsongpopupplaceholder" style="display:none" class="popup-placeholder"></div>
+  <!-- 
+=== END POPUP STUFF ===========================================================
+-->
+
+
+  <div id="header">
+    <div>
+      <img id="ssm_icon" src="icons/ssm_icon.png">
+      <h1>Worship Set Selector</h1>
+    </div>
+    <!-- <div class="tooltip"> -->
+    <div id="chord_media_toggle">
+      <div id="chord_toggle" class="toggle selected" onclick="switchMedia()" title="toggle chords mode">
+        Chords
+      </div>
+      <div id="media_toggle" class="toggle" onclick="switchMedia()" title="toggle media mode">
+        Media
+      </div>
+    </div>
+
+    <!--<img class="icon_button" id="media_button" src="icons/projector-fill.svg" 
+    onclick="switchMedia()">-->
+
+    <!--
+    <span class="tooltiptext tttbottom" id="media_button_text">Switch to media mode</span>
+  -->
+  </div>
+  </div>
+
+  <img id="nightmode" src="icons/sun.svg">
+
+  <div id="wrapper">
+    <div id="side_bar">
+      <div id="songs_header">
+        <p id="song_list_label" class="section_label_top">Songs</p>
+        <p id="minimize_button_top" class="minimize_button_top" onclick="changeSongsVisibility()"
+          title="Hide song database">
+          –</p>
+      </div>
+      <div id="songs_dashboard">
+        <div id="search_bar_content" class="search_bar_content">
+          <input type="text" placeholder="Search.." id="main_search_bar" class="search_bar" oninput="mainSearch()">
+          <ul id="main_search_results" class="search_results"></ul>
+        </div>
+        <div id="tempo_dashboard">
+          <label id="tempo_label" class="small_label">Tempo:
+
+            <select name="tempo_options" id="tempo_options" onchange="mainSearch()">
+              <option value="Any">Any</option>
+            </select>
+
+            <!--
+            <drop-down></drop-down>
+            -->
+
+          </label>
+          <div>
+            <img class="icon_button" style="width:1.1rem; margin-right:0.5rem" id="shuffle" src="icons/shuffle.svg"
+              onclick="shuffle()" title="Holy Flip">
+            <img class="icon_button" style="width:1.1rem" id="addToDatabase" src="icons/library.svg"
+              onclick="editSongLibraryPopUp()" title="Add/remove songs from your personal library">
+          </div>
+        </div>
+      </div>
+      <p id="set_list_label" class="section_label">Set List</p>
+      <div id="set_list" tabindex="0">
+        <ul id="set_list_items"></ul>
+      </div>
+      <div id="export">
+      </div>
+    </div>
+
+    <div id="transition_display">
+      <div class="dashboard">
+        <span class="dashboard_button" onclick="">Add to Set</span>
+      </div>
+      <div id='fakepresentation'></div>
+    </div>
+
+    <div id="chord_display" style="display:block">
+      <div id="chord_display_dashboard" class="dashboard">
+        <div>
+          <span class="dashboard_button" onclick="addSongToSet()" title="Add song to set with key/chord/lyric changes">
+            Add to Set
+          </span>
+          <span class="dashboard_button" onclick="editSongShortcut()"
+            title="Save any key/chord/lyric changes to your personal library">
+            Save Changes
+          </span>
+        </div>
+        <div id="transpose_dashboard">
+          <div id="key_label" class="key_label"> Current Key: </div>
+          <div id="key_display" class="key_display">?</div>
+          <img id="button_minus" src="icons/caret-down-fill.svg" class="transpose_button" title="Decrease key">
+          <img id="button_plus" src="icons/caret-up-fill.svg" class="transpose_button" title="Increase key">
+          <img id="splitscreen_button" src="icons/layout-sidebar-inset-reverse.svg" class="transpose_button"
+            title="Split screen" onclick="splitscreen()">
+        </div>
+      </div>
+      <textarea id="text_entry" placeholder="Chord Sheets Here" spellcheck="false"></textarea>
+      <div id="splitscreen" style="visibility:hidden;"></div>
+    </div>
+
+
+    <div id="media_display" style="display:none">
+
+      <div id="presentation_wrapper">
+        <div class="dashboard">
+          <span class="dashboard_button" onclick="addSongToSet()">
+            Add to Set
+          </span>
+          <div style="display: inline-block">
+            <img class="media_dashboard_button" id="fontdecrease_button" src="icons/font-down.svg"
+              onclick="decreaseFontSize()" title="decrease font size">
+            <img class="media_dashboard_button" id="fontincrease_button" src="icons/font-up.svg"
+              onclick="increaseFontSize()" title="increase font size">
+            <img class="media_dashboard_button" id="blackscreen_button" src="icons/back.svg" onclick="blackScreen()"
+              title="Toggle black screen">
+            <img class="media_dashboard_button" id="cast_button" src="icons/cast.svg" onclick="toggleFullscreen()"
+              title="Fullscreen">
+          </div>
+        </div>
+        <div id="currpresentation" class="presentation">
+          <span id="currpresentation_text">
+            <!--   Choose a song on <br> the left to begin -->
+          </span>
+          <div id="nextpresentation" class="presentation" title="Next Slide">
+            <span id="nextpresentation_text">
+              Next slide goes here
+              <!--   Choose a song on <br> the left to begin -->
+            </span>
+          </div>
+        </div>
+
+        <div id="mainContainer">
+          <h1>Streaming Speech to Text</h1>
+          <select id="inputLanguageList">
+            <option value="nan">Select the language you are going to speak</option>
+            <option value="zh-CN">Chinese (simplified)</option>
+            <option value="en-AU">English (Australian)</option>
+            <option value="en-GB">English (British)</option>
+            <option value="en-US">English (US)</option>
+            <option value="fr-FR">French</option>
+            <option value="fr-CA">French (Canadian)</option>
+            <option value="de-DE">German</option>
+            <option value="it-IT">Italian</option>
+            <option value="ja-JP">Japanese</option>
+            <option value="ko-KR">Korean</option>
+            <option value="pt-BR">Portugese (Brazilian)</option>
+            <option value="es-US">Spanish (US)</option>
+          </select>
+
+          <div id="recordButtonContainer">
+            <button id="record" class="recordInactive" onclick="onRecordPress()">◉</button>
+          </div>
+
+          <div id="outputSection">
+            <div id="headerText">
+              <h2>Transcription</h2>
+            </div>
+            <div id="transcribedText"></div>
+            <div id="controlContainer">
+              <button class="button" onclick="clearTranscription()">Clear</button>
+            </div>
+            <div id="headerText">
+              <h2>Translation</h2>
+            </div>
+            <div id="translatedText"></div>
+
+          </div>
+        </div>
+
+        <script type="text/javascript" src="./main.js"></script>
+
+
+      </div>
+
+      <div id="right_side_bar">
+        <div id="lyrics_header">
+          <img id="lyric_faq_button" class="icon_button" id="edit_lyrics" src="icons/question-circle.svg"
+            onclick="opentutorialpopup()" title="Help">
+          <div id="lyric_list_label" class="section_label_top">Lyrics</div>
+          <img id="edit_lyrics_button" class="icon_button" id="edit_lyrics" src="icons/pencil-square.svg"
+            onclick="editLyricsPopUp()" title="Edit lyrics">
+        </div>
+        <div id="lyrics_dashboard" tabindex="0">
+          <ul id="lyric_results" class="search_results"></ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="
+  https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js
+"></script>
+  <script src="
+  https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js
+"></script>
+  <script src="
+  https://unpkg.com/docx@7.1.0/build/index.js
+"></script>
+
+  <script src="global_variables.js"></script>
+  <script src="transposer.js"></script>
+  <script src="components/prettyButton.js"></script>
+  <script src="components/export.js"></script>
+  <script src="components/splitscreen.js"></script>
+  <script src="components/tutorialpopup.js"></script>
+  <script src="components/addsong.js"></script>
+  <script src="components/editlibrary.js"></script>
+  <script src="components/editlyrics.js"></script>
+  <script src="components/dropDown.js"></script>
+
+  <script src="mobile.js"></script>
+
+  <script src="searchbar.js"></script>
+  <script src="setlist.js"></script>
+  <script src="nightmode.js"></script>
+  <script type="module" src="fonts/SourceCodePro-Regular-normal.js"></script>
+  <script src="media.js"></script>
+  <script src="functions.js"></script>
+  <script src="lyriclist.js"></script>
+  <script src="keystrokes.js"></script>
+
+
+  <script src="database.js"></script>
+  <!--<script 
+  src="https://drive.google.com/file/d/1f00-IiQZnq_nPUqn1lcyXbu0cQM6nXUl/view?usp=sharing"
+type="text/javascript"></script>-->
+  <script src="database_load.js"></script>
+
+
+</body>
+
+</html>

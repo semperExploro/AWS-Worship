@@ -1,0 +1,237 @@
+/* https://uxplanet.org/8-tips-for-dark-theme-design-8dfc2f8f7ab6 */
+:root {
+  --c1: #242424; /* bg1 */
+  --c2: #102A43; /* primary - dark blue*/ 
+  --c3: #BCCCDC; /* secondary - lighter blue*/
+  --c5: #95BF74; /* accent 2 */
+  --bg: #121212; /* dark grey */
+  --layer05: #1F1F1F; /* dark grey */
+  --layer1: #212121; /* dark grey */
+  --layer2: #424242; /* dark grey */
+  --texthigh: rgba(255, 255, 255, 0.87);
+  --textmedium: rgba(255, 255, 255, 0.60);
+  --textlow: rgba(255, 255, 255, 0.38);
+}
+
+
+body{
+    background-color: var(--bg);
+}
+
+#lyric_faq_button,
+.set_delete,
+#nightmode,
+#edit_lyrics_button,
+#media_button,
+.icon_button {
+  filter: invert(90%) sepia(9%) saturate(494%) hue-rotate(173deg) brightness(90%) contrast(90%); 
+  /* svg color change to #BCCCDC */
+}
+
+#lyric_faq_button:hover,
+.set_delete:hover,
+#nightmode:hover,
+#edit_lyrics_button,
+#media_button:hover,
+.icon_button:hover {
+  filter: invert(98%) sepia(6%) saturate(443%) hue-rotate(272deg) brightness(117%) contrast(87%);
+  /* svg color change to white(?) */
+}
+
+h1{
+  color: #BDBDBD;
+}
+
+#chord_display{
+  color: #F5F5F5;
+}
+
+#main_search_results {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+#library_search_bar,
+#main_search_bar {
+  background-color: var(--layer05);
+  color: var(--texthigh);
+  border-width: 0 0 1 0;
+  border-color: var(--textlow)
+}
+
+#main_search_bar:focus {outline: 3px solid #BCCCDC;}
+
+#lyric_results,
+.search_bar_content {
+  background-color: var(--layer1);
+  color: var(--texthigh);
+  border-width: 0 0 0 0;
+}
+
+#lyric_results,
+.search_bar_content,
+#tempo_options,
+#export_select,
+#export_button {
+  box-shadow: rgba(60, 60, 60, 0.2) 0px 7px 15px 0px;
+}
+
+
+.lyric_title,
+.search_list_title{
+  background-color: var(--layer1);
+  color: var(--texthigh);
+  border-width: 0 0 0 0;
+}
+
+.lyric_list:hover,
+.search_list:hover {
+  background: #334E68;
+}
+
+.lyric_list:hover > .lyric_title,
+.search_list:hover > .search_list_title {
+  color: var(--texthigh);
+  background: #334E68;
+}
+
+.search_list.selected{
+  background-color: var(--layer2);
+}
+.search_list.selected > .search_list_title{
+  background-color: var(--layer2);
+}
+
+#set_list{
+    background-color: var(--layer1);
+    padding: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#set_list:focus{
+  outline: 1.5px solid #BCCCDC;
+}
+
+.label{
+  color: #EEEEEE;
+}
+
+.top_label{
+  color: #EEEEEE;
+}
+
+.minimize_button_top{
+  color: #BCCCDC;
+  cursor:pointer;
+}
+
+.minimize_button_top:hover {
+  color: #BCCCDC;
+}
+
+.small_label{
+  color: #EEEEEE;
+}
+
+#tempo_options{
+  background: #102A43;
+  border: 0;
+  padding: 6px;
+  border-radius: 10px;
+  color: #E0E0E0;
+  cursor: pointer;
+  margin-left: 2em;
+}
+
+.dashboard{
+  background-color: var(--c2);
+}
+
+#text_entry{
+  margin: 0;
+  background: var(--layer1);
+  color: var(--texthigh);
+  border: 0;
+  background: none;
+  border: 1px rgb(140, 138, 138) solid;
+  border-top: none;
+  padding: 2em;
+  box-sizing:border-box;
+}
+#splitscreentext {
+  background: var(--layer1);
+  color: var(--texthigh);
+}
+#text_entry:focus{ outline:none; }
+
+.dashboard_button,
+.transpose_button {
+  background: none;
+}
+.dashboard_button {
+  border: 1px rgb(140, 138, 138) solid;
+}
+.dashboard_button:hover {
+  border-color: rgb(160, 158, 158);
+}
+
+.key_display,
+.key_label{
+  color: #BDBDBD;
+}
+
+.set_title{
+  color: #E0E0E0;
+}
+
+.set_list_item:hover {
+  background: #334E68;
+}
+.lyric_list.selected,
+.lyric_list.selected > .lyric_title,
+.set_list_item.selected {
+  background: #102A43;
+}
+
+.section_label_top,
+.section_label{
+  color: var(--textmedium);
+}
+
+#export_button,
+#export_select{
+  background: #102A43;
+  border: 0;
+  padding: 6px;
+  border-radius: 10px;
+  color: #E0E0E0;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* POPUP STYLING */
+.popup {
+  background: #102A43;
+  color: #E0E0E0;
+}
+#popup-addsong input[type="text"],
+#popup-addsong textarea {
+  color: #E0E0E0;
+  background-color: #242424;
+}
+
+
+#fakepresentation {
+  background: var(--layer1);
+}
+#fakepresentation.media {
+  background: black;
+}
+
+.toggle.selected{
+  background-color: var(--c2); 
+  border-color: var(--c2);
+}

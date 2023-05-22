@@ -1,0 +1,778 @@
+/**FOR MOBILE
+*/
+#mobile_header.hidden{
+  display:none;
+}
+#mobile_dashboard.hidden{
+  display:none;
+}
+
+body{
+    /*background-image:url(background_board.jpeg);*/
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    margin:0;
+}
+
+.svg_icon {
+}
+
+#ssm_icon{
+  box-sizing: border-box;
+  display: inline-block;
+  height: 1.9rem;
+  margin-right: 1rem;
+}
+
+#media_button{
+  box-sizing: border-box;
+  display: inline-block;
+  height: 1.5rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.toggle{
+  position:absolute; 
+  display: block; 
+  width:6vw; 
+  border:1px rgb(140, 138, 138) solid;
+  color:rgb(140, 138, 138);
+  padding:0.4rem; 
+  text-align: center; 
+  font-size:0.8rem; 
+  cursor:pointer;
+}
+
+#chord_toggle{
+  top:4vh; 
+  right:13vw; 
+  border-top-left-radius:0.3rem; 
+  border-bottom-left-radius: 0.3rem; 
+  border-right:none;
+}
+
+#media_toggle{
+  top:4vh; 
+  right:6vw;
+  border-top-right-radius:0.3rem; 
+  border-bottom-right-radius: 0.3rem;
+  border-left:none;
+}
+
+.toggle.selected{
+  background-color: rgb(40, 90, 169); 
+  border-color:rgb(40, 90, 169); 
+  color: white;
+}
+
+
+#nightmode{
+  box-sizing: border-box;
+  height: 1.5rem;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  cursor: pointer;
+}
+
+
+#header{
+  justify-content: space-between;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  padding-left: 0.6%;
+  padding-right:0.6%;
+  padding-top:2.5rem;
+  padding-bottom:2rem;
+  margin-left: 5%;
+  margin-right: 6%;
+}
+
+h1{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 1.9rem;
+  font-weight: 2000;
+  color: rgb(50, 50, 50);
+}
+
+#wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 90%;
+  /*height: 92%;*/
+  position: relative;
+}
+
+#chord_display{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.6%;
+  width: 80%;
+  display: block;
+  position:relative;
+  z-index: 2;
+}
+
+.clickable_link{
+  font-size:0.8rem;
+}
+.clickable_link:hover{
+  color:rgb(52, 86, 139);
+  text-decoration: underline
+}
+/*
+ * ===========================================================================
+ * SIDE BAR
+ * ===========================================================================
+*/
+
+#side_bar{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.6%;
+  width: 20%;
+}
+
+.search_bar {
+  box-sizing: border-box;
+  width: 100%;
+  font-size:1rem;
+  padding: 0.5em;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.search_bar:focus {outline: 3px solid #ddd;}
+
+.search_bar_content {
+  background-color: #f6f6f6;
+  overflow: auto;
+  border: 1px solid #ddd;
+  max-height: 35vh;
+  transition: all 0.7s ease-in-out 0s;
+}
+
+#set_list{
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: 2 em;
+    padding: 0.2em;
+    width: 100%;
+    background-color:  #f6f6f6;
+}
+
+#set_list:focus, #lyrics_dashboard:focus{
+  outline: 1.5px solid #ddd;
+}
+
+.search_results{
+  padding: 0.1em;
+  margin: 0em;
+}
+
+
+.lyric_list,
+.search_list {
+  width:calc(100% - 0.8em);
+  margin: 0;
+  padding: 0.4em;
+  padding-top:0.7em;
+  padding-bottom:0.7em;
+  display:block;
+}
+
+.lyric_title,
+.search_list_title{
+  width:100%;
+  display:inline-block;
+  font-size: 0.8rem;
+  font-weight:400px;
+  color:black;
+}
+
+.lyric_list:hover,
+.search_list:hover {
+  background-color: Gainsboro;
+}
+
+.search_list.selected{
+  background-color: gray;
+}
+
+.search_list.selected > .search_list_title{
+  color: white;
+}
+
+.search_list.hidden {
+  display:none;
+}
+
+
+
+#set_list_items{
+  box-sizing: border-box;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+.set_list_item {
+  box-sizing: border-box;
+  display:flex;
+  align-items:center;
+  flex-direction:right;
+  justify-content: space-between;
+  width:100%;
+  padding-top: 0.6em;
+  padding-left: 0.4em;
+  padding-bottom: 0.6em;
+  padding-right: 0.4em;
+
+
+}
+
+.set_title{
+  display:inline-block;
+  font-size: 0.8rem;
+  /*font-weight:400px;*/
+  color:black;
+}
+
+
+.set_list_item:hover {
+  background-color:lightgray;
+}
+
+.set_list_item.hidden{
+  display:none;
+}
+
+
+.lyric_list.selected,
+.set_list_item.selected {
+  background: rgb(52, 86, 139);
+}
+
+.lyric_list.selected > .lyric_title,
+.set_list_item.selected > .set_title {
+  color: white;
+}
+
+.set_delete{
+  width:0.8rem;
+  display:inline-block;
+  padding:0.2em;
+}
+
+.set_delete:hover{
+  filter: invert(73%) sepia(0%) saturate(0%) hue-rotate(259deg) brightness(93%) contrast(93%);
+
+}
+
+.section_label{
+  font-size: 1.1rem;
+  font-weight: 450;
+  color: black;
+}
+
+.section_label_top{
+  display:inline-block;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 450;
+  color: black;
+}
+
+.minimize_button_top{
+  display:inline-block;
+  margin-top:0.3rem;
+  color: gray;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.minimize_button_top:hover {
+  color:rgb(50,50,50);
+}
+
+#songs_header{
+  box-sizing:border-box;
+  display: flex;
+  width: 100%;
+  flex-direction:right;
+  justify-content: space-between;
+
+}
+
+.small_label{
+  font-size: 0.7rem;
+  font-weight:300;
+}
+
+#tempo_options{
+  font-size:0.7rem;
+  font-weight:300rem;
+  max-width: 4rem;
+  margin-right: 0.7rem;
+}
+
+#tempo_dashboard{
+  margin-top:0.5rem;
+  display: flex;
+  flex-direction:right;
+  justify-content: space-between;
+  padding:0;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+#export_select{
+  display:block;
+  font-size:0.7rem;
+  max-width: 5rem;
+  line-height:0.7rem;
+}
+
+#export_button{
+  display:block;
+  margin-top:0.5rem;
+  padding:0.2rem;
+  font-size:0.7rem;
+  font-weight:300rem;
+}
+
+
+/*
+ * ===========================================================================
+ * CHORD DISPLAY
+ * ===========================================================================
+*/
+
+
+.dashboard{
+  box-sizing:border-box;
+  display: flex;
+  padding: 0.4em;
+  /*height: 7%;*/
+  background-color: rgb(52, 86, 139);
+  width: 100%;
+  justify-content: space-between;
+}
+
+#text_entry{
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100vh - 120px); /*110px is the size of the header*/
+  font-family: 'Source Code Pro', monospace;
+  margin: 0;
+  padding: 2em;
+  border-radius: 0;
+}
+
+.icon_button {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.icon_button:hover {
+  filter: invert(75%) sepia(0%) saturate(100%) hue-rotate(259deg) brightness(50%) contrast(93%);
+  /* svg color to #AAAAAA */
+  cursor: pointer;
+}
+
+
+.media_dashboard_button{
+  filter: invert(100%);
+  display:inline-block;
+  vertical-align: middle;
+  margin:0;
+  padding: 0.4em;
+  background-color:rgb(214, 187, 143);
+  border-radius:0.3rem;
+  width: 1.3rem;
+  cursor: pointer;
+}
+#cast_button.selected,
+#blackscreen_button.selected{
+  background-color: rgb(234, 207, 163);
+}
+.media_dashboard_button:hover{
+  background-color:rgb(224, 197, 153);
+  width: 1.3rem;
+}
+
+#transpose_dashboard {
+  margin: 0;
+  padding: 0;
+  display:inline-block;
+  text-align: right;
+  margin-right: 5%;
+}
+
+.key_label{
+  font-size: 1rem;
+  vertical-align: middle;
+  color: white;
+  font-weight: 300;
+  display: inline-block;
+  padding: 0.2em;
+
+}
+
+.key_display{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: bold;
+  width:1rem;
+  margin-right:0.1rem;
+  padding: 0.2em;
+  color: white;
+  text-align:left;
+
+}
+
+.dashboard_button,
+.transpose_button{
+  display:inline-block;
+  vertical-align: middle;
+  width:1rem;
+  filter: invert(100%);
+  margin:0;
+  padding: 0.4em;
+  background-color:rgb(214, 187, 143);
+  border-radius:0.3rem;
+  color:white;
+  cursor:pointer;
+}
+
+.dashboard_button:hover,
+.transpose_button:hover{
+  background-color:rgb(224, 197, 153);
+}
+.dashboard_button {
+  border-width:0;
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+  width:100px;
+  color:black;
+  text-align: center;
+  padding-top:0.6rem;
+  padding-bottom:0.6rem;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+
+/* ===========================================================================
+ * BEGIN POPUP STUFF
+ * ===========================================================================
+*/
+.popup{
+  /*display:none;*/
+  box-sizing: border-box;
+  background-color: white;
+  position: fixed;
+   padding-left: 3vw;
+   padding-right: 3vw;
+   padding-top: 1vh;
+   padding-bottom:3vh;
+   border-radius: 1vw;
+}
+
+#popup-addsong, #popup-editsong{
+   width: 50vw;
+   top: 15vh;
+   left:25vw;
+   z-index:13;
+}
+
+#popup-editlibrary{
+  width: 50vw;
+  top: 15vh;
+  left:25vw;
+  z-index:11;
+}
+
+#popup-editlyrics {
+  width: 50vw;
+  top: 15vh;
+  left:25vw;
+  z-index:13;
+}
+
+#popup-background{
+  display:none;
+  position:fixed;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(50, 50, 50, 0.5);
+  z-index:10;
+}
+.popup-background{
+  display:none;
+  position:fixed;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(50, 50, 50, 0.5);
+  z-index:10;
+}
+
+.form_label{
+  font-size: 0.8rem;
+  font-weight:300rem;
+}
+
+#song_sheet_input, #edit_song_sheet_input {
+  width: 100%;
+  height: calc(70vh - 300px);
+}
+
+#edit_lyrics_input{
+  width: 100%;
+  height: calc(70vh - 100px);
+
+
+}
+
+.popup_input{
+  display: block;
+  margin-top:0.3rem;
+  margin-bottom:0.6rem;
+}
+
+.popup_close {
+  position: absolute;
+  top:1rem;
+  right:1rem;
+  cursor: pointer;
+  height: 1.5rem;
+  margin-right: 1rem;
+  filter: invert(28%) sepia(66%) saturate(562%) hue-rotate(177deg) brightness(90%) contrast(85%);
+  /* This color matches the top bar #34568B */
+  transition: all 0.3s ease-in-out 0s;
+}
+#popup_close:hover { transform: rotate(360deg); }
+
+/* ===========================================================================
+ * END POPUP STUFF
+ * BEGIN TOOLTIP STUFF
+ * ===========================================================================
+*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  z-index: 3;
+}
+
+.tooltip .tooltiptext {
+  border-radius: 5px;
+  visibility: hidden;
+  min-width: 120px;
+  font-size: 0.8rem;
+  background-color: #121212;
+  color: #EFEFEF;
+  text-align: center;
+  padding: 0.4rem;
+  position: absolute;
+  overflow: auto;
+}
+.tttright {
+  top: -5px;
+  left: 150%;
+}
+
+.tttbottom {
+  top: 100%;
+  left: -100%;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #121212 transparent transparent;
+}
+/*
+ * ===========================================================================
+ * END TOOLTIP STUFF
+ * BEGIN MEDIA STUFF
+ * ===========================================================================
+*/
+#media_display{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.6%;
+  width: 80%;
+  display: none;
+  position:relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+}
+
+#presentation_wrapper{
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 72%;
+  display: block;
+  box-sizing: border-box;
+}
+#presentation_header{
+  width: 100%
+}
+#currpresentation{
+  width: 100%;
+  position: relative;
+  font-size: 1.7496vw; /* Multiply all the width percents times the aspect ratio */
+  line-height: 2.6244vw;
+  padding-top: 2.6244vw;
+}
+.presentation{
+  font-family: "Century Gothic", Helvetica, serif;
+  box-sizing: border-box;
+  height: max-content;
+  aspect-ratio: 16 / 9;
+  background: black;
+  text-align: center;
+/*
+  display: table;
+*/
+}
+.presentation > span{
+  color: white;
+/*
+  display: table-cell;
+  vertical-align: middle;
+*/
+}
+#nextpresentation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-color: rgba(255, 255, 255, 0.38);
+  border-width: 1px;
+  border-style: solid;
+  width: 40%;
+  font-size: 0.69984vw;
+  line-height: 1.04976vw;
+  padding-top: 1.04976vw;
+  opacity: 0.75;
+}
+/*
+ * NOTE: the actual display presentation's styles are hardcoded until I figure
+ * out how to apply a stylesheet to a popup window
+ */
+/* ===========================================================================
+ * Begin Right Sidebar
+ * ===========================================================================
+ */
+#right_side_bar {
+  width: 25%;
+  padding-left: 0.8%;
+  padding-right: 0.8%;
+}
+#lyrics_header {
+  text-align: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 35px;
+  height: 3rem;
+}
+#lyric_list_label {
+  margin-top:0.5rem; 
+  margin-bottom:0.5rem; 
+}
+#lyrics_dashboard {
+}
+#lyric_results {
+  border: 1px solid #ddd;
+  height: 55vh;
+  max-height: 85vh;
+  overflow:scroll;
+  list-style-type: none;
+  text-align: left;
+  resize: vertical;
+}
+.lyric_title {
+  line-height: 1.2rem;
+}
+
+/* ===========================================================================
+ * Begin Media Transition Box
+ * ===========================================================================
+ */
+#transition_display {
+  transition: all 0.7s ease-in-out 0s, opacity 0s ease-in-out 0s;
+  margin: 0;
+  padding: 0.6%;
+  position: absolute;
+  opacity: 0;
+  width: 78.8%;
+  left: 20%;
+  z-index: 1;
+}
+#fakepresentation {
+  transition: all 0.7s ease-in-out 0s, opacity 0s ease-in-out 0s;
+  height: calc(100vh - 120px);
+}
+#transition_display.media {
+  width: 58.4%;
+  left: 20.8%;
+}
+#fakepresentation.media {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: black;
+}
+.popup-placeholder {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+/* ===========================================================================
+ * Splitscreen stuff
+ * ===========================================================================
+ */
+#splitscreen {
+  position:absolute;
+  right:1%;
+  top: calc(0.6% + 50px);
+  height: calc(99.4% - 120px);
+  width:45%;
+  border: 1px;
+  cursor: all-scroll;
+}
+#splitscreentext {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-family: 'Source Code Pro', monospace;
+  margin: 0;
+  padding: 2em;
+  border-radius: 0;
+  overflow:hidden;
+  cursor: all-scroll;
+}
+#splitscreen:focus,
+#splitscreentext:focus { outline:none; }
+
