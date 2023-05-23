@@ -211,12 +211,14 @@
             <div class="mt-4">
               <button class="btn btn-success" id="start">Start</button>
               <button class="btn btn-danger" id="stop">Stop</button>
+              <button class="btn btn-danger" id="slideSer">Auto Slide Turner</button>
 
               <p id="status" class="lead mt-3 text-light" style="display: none">Listenting ...</p>
             </div>
           </body>
           <script src="./speechRecognition.js"></script>
           <script src="./language.js"></script>
+          <script src="./transcribe.js"></script>
 
 
       </div>
@@ -232,12 +234,6 @@
         <div id="lyrics_dashboard" tabindex="0">
           <ul id="lyric_results" class="search_results"></ul>
         </div>
-
-        <div id="Auto Slide Turner">
-        <p style="color:white;">Please make sure that your set is ready. Once you are done with the worship set, press the stop button at the bottom of the page</p>
-
-        <button class="btn btn-danger" id="Auto Slide Turn">Auto Slide Turn</button>
-        </div>
       </div>
 
     </div>
@@ -252,6 +248,8 @@
   <script src="
   https://unpkg.com/docx@7.1.0/build/index.js
 "></script>
+  <script src="speechRecognition.js"> type = module</script>
+
   <script src="worshipSet.js"></script>
   <script src="global_variables.js"></script>
   <script src="transposer.js"></script>
@@ -265,7 +263,6 @@
   <script src="components/dropDown.js"></script>
 
   <script src="mobile.js"></script>
-
   <script src="searchbar.js"></script>
   <script src="setlist.js"></script>
   <script src="nightmode.js"></script>

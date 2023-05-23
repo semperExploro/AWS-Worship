@@ -11,6 +11,10 @@ class WorshipSet {
         this.listOfSongID = [];
     }
 
+    getSongs() {
+        return this.listOfSongID;
+    }
+
     /*
         Set the list of songs for the worship set
         @param list_of_songs: list of song IDs for the worship set

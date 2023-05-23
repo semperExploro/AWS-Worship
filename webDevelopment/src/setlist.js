@@ -8,6 +8,12 @@ let worship_set = new WorshipSet();
 
 // Functions
 
+// return the worship set when called
+function getWorshipSet(){
+
+  return worship_set;
+}
+
 function addSongToSet() {
   var set_list = document.getElementById("set_list_items");
   var current_list = set_list.getElementsByTagName("li");

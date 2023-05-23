@@ -1,7 +1,6 @@
+
+
 if ("webkitSpeechRecognition" in window) {
-
-
-
 
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
@@ -23,7 +22,9 @@ if ("webkitSpeechRecognition" in window) {
   };
 
   speechRecognition.onresult = (event) => {
+
     let interim_transcript = "";
+    console.log("Speech has Started")
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
@@ -45,11 +46,12 @@ if ("webkitSpeechRecognition" in window) {
   document.querySelector("#stop").onclick = () => {
     speechRecognition.stop();
   };
+  document.querySelector("#slideSer").onclick = () => {
+    let session = new Transcribe();
 
-  document.querySelector("#Auto Slide Turn").onclick = () => {
     speechRecognition.start();
   };
-  
+
 } else {
   console.log("Speech Recognition Not Available");
 }
