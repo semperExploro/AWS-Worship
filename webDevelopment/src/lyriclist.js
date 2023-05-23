@@ -70,6 +70,7 @@ function selectLyric(e=this) {
   unselectLyricList()
   pres1.innerText = targetElement.getAttribute("lyric");
   setPresLyric(targetElement.getAttribute('lyric'));
+
   targetElement.classList.add("selected");
   //targetElement.scrollIntoView();
 

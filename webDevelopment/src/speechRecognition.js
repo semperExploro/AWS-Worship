@@ -4,12 +4,14 @@ if ("webkitSpeechRecognition" in window) {
 
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
+  let session = null
 
   speechRecognition.continuous = true;
   speechRecognition.interimResults = true;
   speechRecognition.lang = document.querySelector("#select_dialect").value;
 
   speechRecognition.onstart = () => {
+    session = new Transcribe();
     document.querySelector("#status").style.display = "block";
   };
   speechRecognition.onerror = () => {
@@ -24,7 +26,7 @@ if ("webkitSpeechRecognition" in window) {
   speechRecognition.onresult = (event) => {
 
     let interim_transcript = "";
-    console.log("Speech has Started")
+    //console.log("Speech has Started")
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
@@ -32,10 +34,21 @@ if ("webkitSpeechRecognition" in window) {
       } else {
         interim_transcript += event.results[i][0].transcript;
       }
-      console.log(final_transcript)
+      //console.log(interim_transcript)
+      let lyric = session.getPhrase(interim_transcript)
+      const pres1 = document.getElementById('currpresentation_text');
+      if (lyric == null) {
+        pres1.innerText = "no text defined";
+        return;
+      }else {
+        //pres1.innerText = lyric;
+        //setPresLyric(lyric);
+        console.log(lyric)
+      }
+
     }
 
-  
+
     document.querySelector("#final").innerHTML = final_transcript;
     document.querySelector("#interim").innerHTML = interim_transcript;
   };
@@ -47,8 +60,7 @@ if ("webkitSpeechRecognition" in window) {
     speechRecognition.stop();
   };
   document.querySelector("#slideSer").onclick = () => {
-    let session = new Transcribe();
-
+    
     speechRecognition.start();
   };
 
