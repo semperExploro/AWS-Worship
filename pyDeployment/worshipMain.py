@@ -18,10 +18,11 @@ def sing(lyrics):
         #print("true")
         prevSentence = lyrics.transcript
     else: 
-
+        print(lyrics.transcript)
         returnedValue = worshipSesh.search(lyrics.transcript)
 
         if returnedValue != None:
+            a = 5
             printLyric(returnedValue)
         else: 
             a = 5
