@@ -1,4 +1,8 @@
 if ("webkitSpeechRecognition" in window) {
+
+
+
+
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
 
@@ -27,7 +31,10 @@ if ("webkitSpeechRecognition" in window) {
       } else {
         interim_transcript += event.results[i][0].transcript;
       }
+      console.log(final_transcript)
     }
+
+  
     document.querySelector("#final").innerHTML = final_transcript;
     document.querySelector("#interim").innerHTML = interim_transcript;
   };
@@ -38,6 +45,11 @@ if ("webkitSpeechRecognition" in window) {
   document.querySelector("#stop").onclick = () => {
     speechRecognition.stop();
   };
+
+  document.querySelector("#Auto Slide Turn").onclick = () => {
+    speechRecognition.start();
+  };
+  
 } else {
   console.log("Speech Recognition Not Available");
 }
