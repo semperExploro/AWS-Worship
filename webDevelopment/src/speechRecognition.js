@@ -4,6 +4,8 @@ if ("webkitSpeechRecognition" in window) {
 
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
+  let totalLyric = "";
+
   let session = null
 
   speechRecognition.continuous = true;
@@ -18,6 +20,13 @@ if ("webkitSpeechRecognition" in window) {
     document.querySelector("#status").style.display = "none";
     console.log("Speech Recognition Error");
   };
+
+
+  speechRecognition.addEventListener('audioend', () => {
+    speechRecognition.start();
+    console.log("Speech has restarted")
+  });
+
   speechRecognition.onend = () => {
     document.querySelector("#status").style.display = "none";
     console.log("Speech Recognition Ended");
@@ -34,23 +43,23 @@ if ("webkitSpeechRecognition" in window) {
       } else {
         interim_transcript += event.results[i][0].transcript;
       }
-      //console.log(interim_transcript)
+
       let lyric = session.getPhrase(interim_transcript)
-      const pres1 = document.getElementById('currpresentation_text');
+      console.log(lyric)
       if (lyric == null) {
-        pres1.innerText = "no text defined";
-        return;
-      }else {
-        //pres1.innerText = lyric;
-        //setPresLyric(lyric);
-        console.log(lyric)
+        document.querySelector("#currpresentation_text").innerHTML = totalLyric;
+      } else {
+        totalLyric = "";
+        for (let i = 0; i < lyric.length; i++) {
+          totalLyric = totalLyric + lyric[i] + " ";
+        }
       }
-
     }
-
 
     document.querySelector("#final").innerHTML = final_transcript;
     document.querySelector("#interim").innerHTML = interim_transcript;
+    document.querySelector("#currpresentation_text").innerHTML = totalLyric;
+
   };
 
   document.querySelector("#start").onclick = () => {
@@ -60,7 +69,7 @@ if ("webkitSpeechRecognition" in window) {
     speechRecognition.stop();
   };
   document.querySelector("#slideSer").onclick = () => {
-    
+
     speechRecognition.start();
   };
 
