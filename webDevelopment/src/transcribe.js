@@ -1,25 +1,22 @@
+
 class Transcribe {
 
     constructor() {
+
         this.WorshipSet = this.#getWorshipSongs();
         this.lyricMap = new Map(); // in the event of spontaneous worship
         this.lyricsInOrder = [];   // assuming 
         this.setAllSongs();
-        this.currIndex = -1;
+        this.currIndex = 0;
         this.currPhrase = "";
         this.currCard = null;
-        this.finishedCard = false;
+        this.passedFirstLine = false;
         this.stayOnCard = false;
     }
 
 
     #getWorshipSongs() {
         return getWorshipSet().getSongs();
-    }
-
-    // add word to all the words spoken
-    addWord(word) {
-        currListOfWords.push(word);
     }
 
     // set the words for the all songs
@@ -38,25 +35,24 @@ class Transcribe {
 
         //sanity check
         console.log(this.lyricMap)
+        console.log(this.lyricsInOrder)
     }
 
-    // get all the lines individually from the lyrics
+    // get all the lines individually from the lyrics for one song
     setHashLines(lyrics) {
-        console.log(lyrics)
         for (i = 0; i < lyrics.length; i++) {
-            let parsed = lyrics[i].split("\n");
-            let firstLine = parsed[0];
-            // make a new card object for the title
-            let newLyricCard = new cardObj(firstLine, true);
-            this.lyricMap.set(firstLine, newLyricCard);
-            this.lyricsInOrder.push(newLyricCard);
-
-            // we only care about the lines with lyrics
-            for (let j = 1; j < parsed.length; j++) {
+            if (i == 0) {
+                // make a new card object for the title
+                let newTitleCard = new CardObj(lyrics[i], true);
+                this.lyricMap.set(newTitleCard.firstLine, newTitleCard);
+                this.lyricsInOrder.push(newTitleCard);
+            } else {
+                // we only care about the lines with lyrics
                 //push lyric cards only, since we want fast response time we set the lyric to rid of all punctuation
-                newLyricCard = new cardObj(parsed[i], false);
-                this.lyricMap.set(cleanString(firstLine), newLyricCard);
+                let newLyricCard = new CardObj(lyrics[i], false);
+                this.lyricMap.set(this.cleanString(newLyricCard.firstLine), newLyricCard);
                 this.lyricsInOrder.push(newLyricCard);
+
             }
         }
     }
@@ -88,68 +84,81 @@ class Transcribe {
 
 
     getPhrase(phrase) {
-        if ((this.currPhrase.length) <= (phrase.length)) {
-            // get until we have complete sentence
-            this.currPhrase = phrase;
-        } else {
-            // we have a complete sentence
-            this.currPhrase = phrase;
 
-            if (this.finishedCard == false) {
-                //assuming we haven't finished our card
-
-
-            } else {
-                // we have finished our card
-                this.currIndex++;
-                this.finishedCard = false;
-                this.currCard = this.lyricsInOrder[this.currIndex];
-
-                let simPercentage = 0
-
-                // new card we look at first line
-                simPercentage = similarity(this.currCard.firstLine, phrase);
-                if (simPercentage > 0.5) {
-                    this.stayOnCard = true;
-                } else {
-                    // we find the closest match 
-                    let closestMatch = this.closestMatch(phrase);
-                    let lyrics = this.lyricMap.get(closestMatch);
-                    this.currCard = lyrics;
-
-                    // in this case want to stay on card
-                    this.stayOnCard = true;
-                }
-
-            }
-
-
-            // get the current card
-
-            // verify that the first line is correct
-            if (simPercentage > 0.5) {
-                // we have a match
-
-
-                let closestMatch = this.closestMatch(phrase);
-
-                if (closestMatch == -1) {
-                    // we return the same phrase
-                } else {
-                    // we return the closest match
-                    let lyrics = this.lyricMap.get(closestMatch);
-                    this.currPhrase = lyrics;
-                }
-
-                return this.currPhrase;
-
-
-            }
-
+        console.log("Nth Card " + this.currIndex)
+        //probably starting from beginning of the worship set
+        if (this.currIndex == 0 && phrase.length > 0) {
+            this.currCard = this.lyricsInOrder[this.currIndex + 1];
+            this.currIndex = this.currIndex + 1;
+            return this.currCard.lyrics;
         }
 
+        // check if the phrase is a good match
+        //assuming we start with fresh card
+
+        console.log("Passed first line " + this.passedFirstLine)
+
+        if (!this.passedFirstLine) {
+            // get current card
+            this.currCard = this.lyricsInOrder[this.currIndex];
+
+            // check if non title card
+            this.passedFirstLine = true;
+            console.log("first line");
+            //get the current's card first line
+            let currCardFirstLine = this.currCard.firstLine;
+            this.currPhrase = this.currCard.lyrics;
+
+            //check if the phrase is the first line
+            let diff = this.checkSimilarLength(currCardFirstLine, phrase);
+
+            console.log("Difference " + diff)
+            if (diff) {
+                //if appropriate length check how similar they are
+                let result = similarity(currCardFirstLine, phrase);
+                console.log("Similiarity " + result)
+
+                //check if passes first line pass
+                if (result > 0.5) {
+                    this.passedFirstLine = true;
+                    console.log("[Event] First Line Passed:")
+                }
+
+            }
+
+        } else {
+            console.log("[Event] Check Last Line:")
+
+            // get the current card's last line
+            let lastLine = this.currCard.lastLine;
+
+            //check if passes first line pass
+            this.checkHasSubStringLength(lastLine, phrase);
+
+        }
+        return this.currPhrase
+    }
+
+    checkHasSubStringLength(lastLine, userInput) {
+        console.log("Last line " + lastLine);
+        for (let i = 0; i < userInput.length; i++) {
+            let subString = userInput.substring(i, userInput.length);
+            let result = similarity(subString, lastLine);
+            if (result > 0.8) {
+                console.log("[Event] : Last Line Passed:")
+                this.currIndex = this.currIndex + 1;
+                this.passedFirstLine = false;
+                break;
+            }
+        }
+    }
+
+    checkSimilarLength(a, b) {
+        return Math.abs(a.length - b.length) < 7;
     }
 }
+
+
 
 // helper functions for similarity between two strings 
 

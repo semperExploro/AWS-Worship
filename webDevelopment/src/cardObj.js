@@ -1,4 +1,4 @@
-class cardObj {
+class CardObj {
 
     /*
     Class Representation of a lyric Card
@@ -9,11 +9,12 @@ class cardObj {
         this.lyrics = lyrics;
 
         let totalArr = lyrics.split("\n");
-        
+
 
         this.firstLine = this.setFirstLine(totalArr);
-        this.secondToLastLine = this.setLastLine(totalArr);
+        this.lastLine = this.setLastLine(totalArr);
         this.isTitleCard = isTitleCard;
+        
     }
 
     /*
@@ -21,7 +22,7 @@ class cardObj {
     * @param {String} lyrics - the lyrics of the card
     */
     setFirstLine(lyrics) {
-        this.firstLine = lyrics[0];
+        return lyrics[0];
     }
 
     /*
@@ -31,11 +32,11 @@ class cardObj {
     setLastLine(lyrics) {
         if (lyrics.length == 1) {
             // first line is the last line
-            this.secondToLastLine = this.firstLine;
+            return this.firstLine;
         } else {
             // second to last line is the last line
-            totalLength = lyrics.length;
-            this.secondToLastLine = lyrics[totalLength - 1];
+            let totalLength = lyrics.length;
+            return lyrics[totalLength - 1];
         }
     }
 
@@ -43,3 +44,4 @@ class cardObj {
 
 
 }
+

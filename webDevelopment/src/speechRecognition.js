@@ -5,7 +5,7 @@ if ("webkitSpeechRecognition" in window) {
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
   let totalLyric = "";
-
+  let previousText = "";
   let session = null
 
   speechRecognition.continuous = true;
@@ -23,8 +23,7 @@ if ("webkitSpeechRecognition" in window) {
 
 
   speechRecognition.addEventListener('audioend', () => {
-    speechRecognition.start();
-    console.log("Speech has restarted")
+    console.log("Speech has terminated")
   });
 
   speechRecognition.onend = () => {
@@ -35,7 +34,7 @@ if ("webkitSpeechRecognition" in window) {
   speechRecognition.onresult = (event) => {
 
     let interim_transcript = "";
-    //console.log("Speech has Started")
+    console.log("Speech has Started")
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
@@ -43,17 +42,16 @@ if ("webkitSpeechRecognition" in window) {
       } else {
         interim_transcript += event.results[i][0].transcript;
       }
-
+      console.log("Interm: " + interim_transcript)
       let lyric = session.getPhrase(interim_transcript)
-      console.log(lyric)
-      if (lyric == null) {
-        document.querySelector("#currpresentation_text").innerHTML = totalLyric;
-      } else {
-        totalLyric = "";
-        for (let i = 0; i < lyric.length; i++) {
-          totalLyric = totalLyric + lyric[i] + " ";
-        }
+
+      totalLyric = "";
+      for (let i = 0; i < lyric.length; i++) {
+        totalLyric = totalLyric + lyric[i]
       }
+      console.log("Total: " + totalLyric)
+
+      previousText = final_transcript
     }
 
     document.querySelector("#final").innerHTML = final_transcript;
