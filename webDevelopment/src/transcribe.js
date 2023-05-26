@@ -85,6 +85,11 @@ class Transcribe {
 
     getPhrase(phrase) {
 
+        // check if we are on the same card
+        if (this.currIndex == this.lyricsInOrder.length) {
+            return -1;
+        }
+
         console.log("Nth Card " + this.currIndex)
         //probably starting from beginning of the worship set
         if (this.currIndex == 0 && phrase.length > 0) {
@@ -110,21 +115,8 @@ class Transcribe {
             this.currPhrase = this.currCard.lyrics;
 
             //check if the phrase is the first line
-            let diff = this.checkSimilarLength(currCardFirstLine, phrase);
+            this.checkFirstLineSimilar(currCardFirstLine, phrase);
 
-            console.log("Difference " + diff)
-            if (diff) {
-                //if appropriate length check how similar they are
-                let result = similarity(currCardFirstLine, phrase);
-                console.log("Similiarity " + result)
-
-                //check if passes first line pass
-                if (result > 0.5) {
-                    this.passedFirstLine = true;
-                    console.log("[Event] First Line Passed:")
-                }
-
-            }
 
         } else {
             console.log("[Event] Check Last Line:")
@@ -133,14 +125,16 @@ class Transcribe {
             let lastLine = this.currCard.lastLine;
 
             //check if passes first line pass
-            this.checkHasSubStringLength(lastLine, phrase);
+            this.checkLastLineSubStringLength(lastLine, phrase);
 
         }
         return this.currPhrase
     }
 
-    checkHasSubStringLength(lastLine, userInput) {
+    checkLastLineSubStringLength(lastLine, userInput) {
         console.log("Last line " + lastLine);
+
+        /*since we get a continous*/
         for (let i = 0; i < userInput.length; i++) {
             let subString = userInput.substring(i, userInput.length);
             let result = similarity(subString, lastLine);
@@ -153,8 +147,16 @@ class Transcribe {
         }
     }
 
-    checkSimilarLength(a, b) {
-        return Math.abs(a.length - b.length) < 7;
+    checkFirstLineSimilar(firstLine, userInput) {
+        for (let i = 0; i < userInput.length; i++) {
+            let subString = userInput.substring(i, userInput.length);
+            let result = similarity(subString, firstLine);
+            if (result > 0.5) {
+                console.log("[Event] : First Line Passed:")
+                this.passedFirstLine = true;
+                break;
+            }
+        }
     }
 }
 
