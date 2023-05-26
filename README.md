@@ -4,7 +4,7 @@
 The goal of this project is to automatically turn the slides for lyrics for a series of slides of music. This is done through speech recognition. 
 
 
-NOTE: The finalized product does not utilize AWS Transcribe, despite what the repository name suggests. The initial web development have AWS, but it was found to be too slow. Web Speech API was used instead. It may be beneficial to switch to Google Cloud Speech API in the future due to better performance. 
+NOTE: The finalized product does not utilize AWS Transcribe, despite what the repository name suggests. The initial web development has AWS Transcribe, but it was found to be too slow. Web Speech API was used instead. It may be beneficial to switch to Google Cloud Speech API in the future due to better performance. 
 
 As of 5/27, further development of this project has been halted. The project will not continue unless there is an expressed interest due to the complexities involved with finishing this work as mentioned in the `Next Steps` section. Please contact me if you are interested in continuing this project by looking for my email on my website - can be found on profile page.
 
@@ -61,7 +61,7 @@ Next, begin the voice recognition process
 - Sing along capability (knowing the order of the verses), the current design is simply based on the chord sheet, which does not reflect the order of the actual song. 
 
 #### Credits
-This project for web development was originally intended for SSM (Stepping Stone Ministry) at Johns Hopkins University. The original create of the website is Allen Jiang - the original website can be found here - https://github.com/allenjiang17/allenjiang17.github.io
+This project for web development was originally intended for SSM (Stepping Stone Ministry) at Johns Hopkins University. The original create of the website is Allen Jiang - the original website can be found here - https://github.com/allenjiang17/allenjiang17.github.io [NOTE: link may no longer be available due to AWS storage pricing concerns]
 
 Reference for recording and voice recongition - https://github.com/zolomohan/speech-recognition-in-javascript/blob/master/speechRecognition.js
 
