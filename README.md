@@ -25,7 +25,8 @@ The web version is the finalized product. It is located in `webDevelopment/src/`
 - open the `index.html` file in a browser. Only works in browsers that support the Web Speech API. Eg. Chrome
 
 #### Remote Deployment
-**Deployment Link** - http://ssm-worship.s3-website-us-east-1.amazonaws.com/
+**Deployment Link** - http://ssm-worship.s3-website-us-east-1.amazonaws.com/ [NOTE: link may no longer be available due to AWS storage pricing concerns]
+
 Because this link is unsecure, one has to make an exception by doing the following. This is specifically for chrome. 
 - First, paste this link and go - `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
 - Then, add the **Deployment Link** above to the list of exceptions.
@@ -61,8 +62,7 @@ Next, begin the voice recognition process
 - Sing along capability (knowing the order of the verses), the current design is simply based on the chord sheet, which does not reflect the order of the actual song. 
 
 #### Credits
-This project for web development was originally intended for SSM (Stepping Stone Ministry) at Johns Hopkins University. The original create of the website is Allen Jiang - the original website can be found here - https://github.com/allenjiang17/allenjiang17.github.io [NOTE: link may no longer be available due to AWS storage pricing concerns]
-
+This project for web development was originally intended for SSM (Stepping Stone Ministry) at Johns Hopkins University. The original create of the website is Allen Jiang - the original website can be found here - https://github.com/allenjiang17/allenjiang17.github.io 
 Reference for recording and voice recongition - https://github.com/zolomohan/speech-recognition-in-javascript/blob/master/speechRecognition.js
 
 #### Pricing Concerns 
