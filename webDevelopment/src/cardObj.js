@@ -17,6 +17,10 @@ class CardObj {
         
     }
 
+    getIsTitleCard() {
+        return this.isTitleCard;
+    }
+
     /*
     * set the first line of the card
     * @param {String} lyrics - the lyrics of the card

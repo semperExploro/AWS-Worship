@@ -35,7 +35,7 @@ if ("webkitSpeechRecognition" in window) {
 
   // speech handling
   speechRecognition.onresult = (event) => {
-
+    console.log("starting speech");
     let interim_transcript = "";
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -53,14 +53,18 @@ if ("webkitSpeechRecognition" in window) {
       //check if we hit list card
       if (lyric == -1) {
         speechRecognition.onend();
+      } else if (lyric == -2) {
+        pause();
+      } else {
+        //print the total lyrics
+        totalLyric = "";
+        for (let i = 0; i < lyric.length; i++) {
+          totalLyric = totalLyric + lyric[i]
+        }
+        console.log("Total: " + totalLyric)
       }
 
-      //print the total lyrics
-      totalLyric = "";
-      for (let i = 0; i < lyric.length; i++) {
-        totalLyric = totalLyric + lyric[i]
-      }
-      console.log("Total: " + totalLyric)
+
     }
 
     //print the lyrics
@@ -78,9 +82,12 @@ if ("webkitSpeechRecognition" in window) {
     speechRecognition.stop();
   };
   document.querySelector("#slideSer").onclick = () => {
+    console.log("we speech");
+
     speechRecognition.start();
   };
 
 } else {
   console.log("Speech Recognition Not Available");
 }
+
