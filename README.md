@@ -4,7 +4,9 @@
 The goal of this project is to automatically turn the slides for lyrics for a series of slides of music. This is done through speech recognition. 
 
 
-NOTE: The finalized product does not utilize AWS Transcribe, more on that in the sections below. 
+NOTE: The finalized product does not utilize AWS Transcribe, despite what the repository name suggests. The initial web development have AWS, but it was found to be too slow. Web Speech API was used instead. It may be beneficial to switch to Google Cloud Speech API in the future due to better performance. 
+
+As of 5/27, further development of this project has been halted. The project will not continue unless there is an expressed interest due to the complexities involved with finishing this work as mentioned in the `Next Steps` section. Please contact me if you are interested in continuing this project by looking for my email on my website - can be found on profile page.
 
 ## Files List 
 - `pyDevelopment/` - an early stage proof of concept for using voice recognition to turn slides on a local computer. Utilizes AWS Transcribe to conduct the operation. 
@@ -23,11 +25,11 @@ The web version is the finalized product. It is located in `webDevelopment/src/`
 - open the `index.html` file in a browser. Only works in browsers that support the Web Speech API. Eg. Chrome
 
 #### Remote Deployment
-Deployment Link - http://ssm-worship.s3-website-us-east-1.amazonaws.com/
+**Deployment Link** - http://ssm-worship.s3-website-us-east-1.amazonaws.com/
 Because this link is unsecure, one has to make an exception by doing the following. This is specifically for chrome. 
 - First, paste this link and go - `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
 - Then, add the **Deployment Link** above to the list of exceptions.
-- Hit the enable flag button and restart chrome.
+- Hit the `enable` flag button and restart chrome.
 
 Next, visit the **Deployment Link** and access to your computer's microphone is granted. 
 
@@ -36,7 +38,7 @@ To test out the functionality of the webpage...
 First Select a Song
 - Click the `Media` button on the top right of the page. 
 - Search for a song in the search bar on the left side of the page. 
-- Select it, it should appear `Set List` section of the page. 
+- Select it, it should appear in the `Set List` section of the page. 
 - On the left side of the page, click the `add to set` button. 
 
 Next, begin the voice recognition process
@@ -63,6 +65,10 @@ This project for web development was originally intended for SSM (Stepping Stone
 
 Reference for recording and voice recongition - https://github.com/zolomohan/speech-recognition-in-javascript/blob/master/speechRecognition.js
 
+#### Pricing Concerns 
+- The Web Speech API is free to use. However, it is not as accurate Google Cloud's Speech API. See Google SpeechAPI for more details - https://cloud.google.com/speech-to-text/pricing. Do note that performance may not improve due to the nature of the program (eg. singing)
+
+- The website is hosted on AWS S3. The cost is minimal, but it is not free. See AWS S3 for more details - https://aws.amazon.com/s3/pricing/. Current pricing is 2.17 MB - which warrants a negligible cost.
 
 ### Python Version
 
